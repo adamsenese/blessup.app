@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pray Before Screen Time — BlessUp</title>
+  <meta name="description" content="BlessUp locks your apps until you pray each day. Start your morning with faith, not doomscrolling." />
+  <meta name="author" content="BlessUp" />
+  <meta name="keywords" content="prayer app,daily prayer,screen time management,digital wellness,faith app,pray before phone,christian app,morning prayer,devotional app,app blocker" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Pray Before Screen Time — BlessUp" />
+  <meta property="og:description" content="BlessUp locks your apps until you pray each day. Start your morning with faith, not doomscrolling." />
+  <meta property="og:url" content="https://blessup.app" />
+  <meta property="og:site_name" content="BlessUp" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pray Before Screen Time — BlessUp" />
+  <meta name="twitter:description" content="BlessUp locks your apps until you pray each day. Start your morning with faith, not doomscrolling." />
+  <link rel="icon" href="assets/images/app-icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/images/app-icon.png" />
+
+  <!-- Fonts -->
+  <style>
+    @font-face {
+      font-family: 'Bricolage Grotesque';
+      src: url('assets/fonts/BricolageGrotesque-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Bricolage Grotesque';
+      src: url('assets/fonts/BricolageGrotesque-Medium.ttf') format('truetype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Bricolage Grotesque';
+      src: url('assets/fonts/BricolageGrotesque-SemiBold.ttf') format('truetype');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Bricolage Grotesque';
+      src: url('assets/fonts/BricolageGrotesque-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Bricolage Grotesque', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            sage: {
+              50: '#F8F6F2',
+              100: '#F2EFE9',
+              200: '#E5E2DC',
+              300: '#ECEAE5',
+              400: '#949389',
+              500: '#666661',
+              600: '#5D6B60',
+              700: '#455148',
+              800: '#2D2D2A',
+            },
+            gold: {
+              300: '#E0D2B7',
+              400: '#C6AD82',
+              500: '#B89A6A',
+            },
+            success: {
+              400: '#6B8E77',
+              100: '#E4EDE6',
+            }
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+      letter-spacing: -0.025em;
+    }
+
+    /* ===== Animations ===== */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .animate-on-scroll.slide-left { transform: translateX(-60px); }
+    .animate-on-scroll.slide-right { transform: translateX(60px); }
+    .animate-on-scroll.scale-in { transform: scale(0.85); }
+    .animate-on-scroll.slide-down { transform: translateY(-20px); }
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0) translateX(0) scale(1);
+    }
+    .stagger-children .animate-on-scroll:nth-child(1) { transition-delay: 0s; }
+    .stagger-children .animate-on-scroll:nth-child(2) { transition-delay: 0.1s; }
+    .stagger-children .animate-on-scroll:nth-child(3) { transition-delay: 0.2s; }
+    .stagger-children .animate-on-scroll:nth-child(4) { transition-delay: 0.3s; }
+
+    /* ===== Hero ===== */
+    .hero-section {
+      background: linear-gradient(135deg, #F8F6F2 0%, #F2EFE9 40%, #E5E2DC 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(198,173,130,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(93,107,96,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    /* ===== Phone Mockup ===== */
+    .phone-mockup {
+      width: 240px;
+      height: 490px;
+      background: #fff;
+      border-radius: 36px;
+      border: 6px solid #2D2D2A;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.15), 0 8px 30px rgba(0,0,0,0.1);
+    }
+    .phone-mockup::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 24px;
+      background: #2D2D2A;
+      border-radius: 0 0 16px 16px;
+      z-index: 10;
+    }
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .phone-left {
+      transform: rotate(-6deg) translateY(20px);
+    }
+    .phone-right {
+      transform: rotate(6deg) translateY(20px);
+    }
+
+    @media (max-width: 639px) {
+      .phone-mockup {
+        width: 180px;
+        height: 370px;
+        border-width: 5px;
+        border-radius: 28px;
+      }
+      .phone-mockup::before {
+        width: 60px;
+        height: 20px;
+        border-radius: 0 0 12px 12px;
+      }
+    }
+
+    /* ===== Screen Time Counter ===== */
+    .counter-section {
+      background: linear-gradient(180deg, #2D2D2A 0%, #1a1a18 100%);
+    }
+    .counter-number {
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 700;
+      line-height: 1;
+      background: linear-gradient(135deg, #C6AD82, #E0D2B7, #C6AD82);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ===== Testimonial Cards ===== */
+    .testimonial-card {
+      background: white;
+      border: 1px solid #E5E2DC;
+      border-radius: 20px;
+      padding: 28px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    }
+
+    /* ===== Marquee ===== */
+    .marquee-container {
+      overflow: hidden;
+      white-space: nowrap;
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 30s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      margin: 0 8px;
+      background: #F8F6F2;
+      border-radius: 100px;
+      white-space: nowrap;
+      font-size: 14px;
+      color: #666661;
+      border: 1px solid #ECEAE5;
+    }
+    .marquee-item .gold-star { color: #C6AD82; }
+
+    /* ===== App Icon Stack ===== */
+    .app-icon-stack { display: flex; align-items: center; }
+    .app-icon-stack img {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      margin-left: -6px;
+      border: 2px solid white;
+    }
+    .app-icon-stack img:first-child { margin-left: 0; }
+
+    /* ===== Highlights ===== */
+    .highlight-sage {
+      background-color: #5D6B60;
+      color: white;
+      padding: 0 0.3rem;
+      border-radius: 0.75rem;
+      display: inline-block;
+    }
+    .highlight-gold {
+      background-color: #C6AD82;
+      color: white;
+      padding: 0 0.3rem;
+      border-radius: 0.75rem;
+      display: inline-block;
+    }
+    @media (min-width: 640px) {
+      .highlight-sage, .highlight-gold { border-radius: 1rem; }
+    }
+
+    /* ===== Footer ===== */
+    .footer-brand {
+      font-size: clamp(4rem, 15vw, 12rem);
+      font-weight: 700;
+      line-height: 0.85;
+      letter-spacing: -0.05em;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ===== Buttons ===== */
+    .appstore-btn {
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .appstore-btn:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    /* ===== Warm Glow ===== */
+    .warm-glow {
+      background: radial-gradient(ellipse at center, rgba(198,173,130,0.15) 0%, transparent 70%);
+    }
+
+    /* ===== Breathing animation for CTA icon ===== */
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .breathe {
+      animation: breathe 4s ease-in-out infinite;
+    }
+
+    /* ===== Floating animation for phone mockups ===== */
+    @keyframes float-left {
+      0%, 100% { transform: rotate(-6deg) translateY(20px); }
+      50% { transform: rotate(-6deg) translateY(8px); }
+    }
+    @keyframes float-right {
+      0%, 100% { transform: rotate(6deg) translateY(20px); }
+      50% { transform: rotate(6deg) translateY(8px); }
+    }
+    .phone-left { animation: float-left 6s ease-in-out infinite; }
+    .phone-right { animation: float-right 6s ease-in-out infinite 0.5s; }
+  </style>
+</head>
+
+<body class="min-h-screen bg-white overflow-x-hidden tracking-tight">
+
+  <!-- ========== HEADER ========== -->
+  <header class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 pt-8 sm:pt-10 animate-on-scroll slide-down relative z-20">
+    <nav class="flex items-center justify-between" aria-label="Main navigation">
+      <a class="flex items-center gap-2.5" href="index.html" aria-label="BlessUp — Go to homepage">
+        <img src="assets/images/app-icon.png" alt="BlessUp" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl" />
+        <span class="text-xl sm:text-2xl font-bold text-gray-900">BlessUp</span>
+      </a>
+      <div class="flex items-center gap-4">
+        <a aria-label="Download BlessUp on the App Store" href="#" class="appstore-btn">
+          <img alt="Download on the App Store" width="120" height="40" src="assets/images/appstore.svg" />
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ========== HERO SECTION ========== -->
+    <section class="hero-section pt-12 sm:pt-20 pb-20 sm:pb-32 relative" aria-labelledby="hero-heading">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-12 sm:mb-16">
+          <div class="animate-on-scroll">
+            <h1 id="hero-heading" class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-sage-800 leading-tight">
+              Pray before<br/>Screen Time
+            </h1>
+          </div>
+          <p class="text-base sm:text-lg md:text-xl text-sage-500 mt-4 sm:mt-6 max-w-lg mx-auto animate-on-scroll" style="font-weight: 300;">
+            BlessUp locks your apps until you pray each day. Start your morning with faith, not doomscrolling.
+          </p>
+          <div class="mt-6 sm:mt-8 animate-on-scroll">
+            <a href="#" class="appstore-btn inline-block">
+              <img alt="Download on the App Store" width="150" height="50" src="assets/images/appstore.svg" />
+            </a>
+          </div>
+        </div>
+
+        <!-- Phone Mockups -->
+        <div class="flex justify-center items-end gap-4 sm:gap-8 relative animate-on-scroll scale-in">
+          <!-- Left Phone: Prayer Screen -->
+          <div class="phone-mockup phone-left">
+            <div class="phone-screen bg-sage-50">
+              <div class="pt-10 px-5 pb-4">
+                <div class="flex items-center justify-between mb-6">
+                  <span class="text-xs text-sage-400 font-medium">9:41 AM</span>
+                  <div class="flex items-center gap-1.5">
+                    <div class="w-4 h-4 rounded-full bg-gold-400 flex items-center justify-center">
+                      <span class="text-white text-[8px] font-bold">7</span>
+                    </div>
+                    <span class="text-xs font-semibold text-sage-600">Day Streak</span>
+                  </div>
+                </div>
+                <div class="text-center mb-6">
+                  <div class="w-16 h-16 mx-auto mb-3">
+                    <svg viewBox="0 0 1226 2260" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                      <path d="M895.79 594.475C966.595 594.475 1023.99 651.873 1023.99 722.678V2131.63C1023.99 2202.43 966.594 2259.83 895.79 2259.83H329.133C258.329 2259.83 200.93 2202.43 200.93 2131.63V722.678C200.93 651.873 258.329 594.475 329.133 594.475H895.79ZM834.307 1318.87C814.564 1307.84 789.618 1314.9 778.587 1334.65L776.522 1338.34C704.092 1467.97 517.75 1468.51 444.574 1339.3C433.43 1319.62 408.444 1312.7 388.766 1323.84C369.087 1334.99 362.168 1359.97 373.312 1379.65C477.958 1564.44 744.436 1563.67 848.017 1378.29L850.081 1374.59C861.111 1354.85 854.049 1329.9 834.307 1318.87Z" fill="#C6AD82"/>
+                      <path d="M641.001 214.05C796.902 261.714 932.332 319.143 1025.13 372.776C1071.81 399.761 1105.7 424.646 1126.05 445.484C1136.24 455.919 1141.5 463.798 1143.82 468.885C1143.97 469.216 1144.1 469.524 1144.22 469.807C1143.96 469.976 1143.68 470.157 1143.37 470.348C1138.61 473.269 1129.84 476.859 1115.56 479.811C1087.03 485.708 1045.02 487.388 991.227 483.652C884.306 476.227 739.916 448.107 584.015 400.443C428.113 352.779 292.684 295.35 199.89 241.717C153.202 214.732 119.314 189.846 98.9646 169.008C88.7748 158.574 83.5129 150.695 81.1958 145.608C81.0444 145.276 80.9122 144.968 80.7949 144.685C81.0503 144.516 81.3321 144.335 81.6432 144.145C86.4086 141.223 95.1767 137.634 109.459 134.681C137.982 128.785 179.993 127.104 233.788 130.84C340.709 138.265 485.099 166.386 641.001 214.05Z" stroke="#C6AD82" stroke-width="81.8968"/>
+                    </svg>
+                  </div>
+                  <p class="text-sage-800 font-semibold text-sm">Good Morning</p>
+                  <p class="text-sage-400 text-xs mt-1">Your daily prayer awaits</p>
+                </div>
+                <div class="space-y-3">
+                  <div class="bg-white rounded-xl p-3 border border-sage-200 flex items-center gap-3">
+                    <div class="w-8 h-8 bg-sage-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sage-800 text-xs font-semibold">Morning Prayer</p>
+                      <p class="text-sage-400 text-[10px]">~2 minutes</p>
+                    </div>
+                    <div class="w-5 h-5 rounded-full border-2 border-sage-200"></div>
+                  </div>
+                  <div class="bg-white rounded-xl p-3 border border-sage-200 flex items-center gap-3">
+                    <div class="w-8 h-8 bg-gold-400 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sage-800 text-xs font-semibold">Daily Verse</p>
+                      <p class="text-sage-400 text-[10px]">Scripture reading</p>
+                    </div>
+                    <div class="w-5 h-5 rounded-full border-2 border-sage-200"></div>
+                  </div>
+                  <div class="bg-white rounded-xl p-3 border border-sage-200 flex items-center gap-3">
+                    <div class="w-8 h-8 bg-success-400 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sage-800 text-xs font-semibold">Gratitude</p>
+                      <p class="text-sage-400 text-[10px]">Reflection moment</p>
+                    </div>
+                    <div class="w-5 h-5 rounded-full border-2 border-sage-200"></div>
+                  </div>
+                </div>
+                <div class="mt-5">
+                  <div class="bg-sage-600 text-white text-center py-3 rounded-xl text-sm font-semibold">
+                    Begin Prayer
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Phone: Shield Screen -->
+          <div class="phone-mockup phone-right">
+            <div class="phone-screen bg-sage-50">
+              <div class="pt-10 px-5 pb-4">
+                <div class="flex items-center justify-between mb-6">
+                  <span class="text-xs text-sage-400 font-medium">9:41 AM</span>
+                  <div class="flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5 text-success-400" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="text-xs font-semibold text-success-400">Prayed</span>
+                  </div>
+                </div>
+                <div class="text-center mb-5">
+                  <p class="text-sage-800 font-semibold text-sm">Apps Unlocked</p>
+                  <p class="text-sage-400 text-xs mt-1">Prayer complete for today</p>
+                </div>
+                <div class="space-y-3">
+                  <div class="bg-white rounded-xl p-3 border border-success-100 flex items-center gap-3">
+                    <img src="assets/images/instagram.png" alt="Instagram" class="w-10 h-10 rounded-xl" />
+                    <div class="flex-1">
+                      <p class="text-sage-800 text-xs font-semibold">Instagram</p>
+                      <p class="text-success-400 text-[10px] font-medium">Unlocked</p>
+                    </div>
+                    <svg class="w-5 h-5 text-success-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
+                  </div>
+                  <div class="bg-white rounded-xl p-3 border border-success-100 flex items-center gap-3">
+                    <img src="assets/images/tiktok.png" alt="TikTok" class="w-10 h-10 rounded-xl" />
+                    <div class="flex-1">
+                      <p class="text-sage-800 text-xs font-semibold">TikTok</p>
+                      <p class="text-success-400 text-[10px] font-medium">Unlocked</p>
+                    </div>
+                    <svg class="w-5 h-5 text-success-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
+                  </div>
+                  <div class="bg-white rounded-xl p-3 border border-success-100 flex items-center gap-3">
+                    <img src="assets/images/youtube.png" alt="YouTube" class="w-10 h-10 rounded-xl" />
+                    <div class="flex-1">
+                      <p class="text-sage-800 text-xs font-semibold">YouTube</p>
+                      <p class="text-success-400 text-[10px] font-medium">Unlocked</p>
+                    </div>
+                    <svg class="w-5 h-5 text-success-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
+                  </div>
+                  <div class="bg-white rounded-xl p-3 border border-success-100 flex items-center gap-3">
+                    <img src="assets/images/reddit.png" alt="Reddit" class="w-10 h-10 rounded-xl" />
+                    <div class="flex-1">
+                      <p class="text-sage-800 text-xs font-semibold">Reddit</p>
+                      <p class="text-success-400 text-[10px] font-medium">Unlocked</p>
+                    </div>
+                    <svg class="w-5 h-5 text-success-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== MARQUEE SOCIAL PROOF ========== -->
+    <section class="py-6 sm:py-8 bg-white border-y border-sage-300" aria-label="User reviews">
+      <div class="marquee-container">
+        <div class="marquee-track">
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "I pray every day now"</div>
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "My mornings have meaning"</div>
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "Changed my phone relationship"</div>
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "Faith before scrolling is real"</div>
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "Best decision I've made"</div>
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "My kids love it too"</div>
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "Simple and beautiful"</div>
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "Finally a prayer habit"</div>
+          <!-- Duplicate for seamless loop -->
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "I pray every day now"</div>
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "My mornings have meaning"</div>
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "Changed my phone relationship"</div>
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "Faith before scrolling is real"</div>
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "Best decision I've made"</div>
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "My kids love it too"</div>
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "Simple and beautiful"</div>
+          <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "Finally a prayer habit"</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== WHAT IF SECTION ========== -->
+    <section class="py-20 sm:py-28 bg-white" aria-labelledby="what-if-heading">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-center mb-4 animate-on-scroll scale-in" aria-hidden="true">
+          <div class="w-[60px] sm:w-[75px] md:w-[90px]">
+            <svg viewBox="0 0 1226 2260" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+              <path d="M895.79 594.475C966.595 594.475 1023.99 651.873 1023.99 722.678V2131.63C1023.99 2202.43 966.594 2259.83 895.79 2259.83H329.133C258.329 2259.83 200.93 2202.43 200.93 2131.63V722.678C200.93 651.873 258.329 594.475 329.133 594.475H895.79ZM834.307 1318.87C814.564 1307.84 789.618 1314.9 778.587 1334.65L776.522 1338.34C704.092 1467.97 517.75 1468.51 444.574 1339.3C433.43 1319.62 408.444 1312.7 388.766 1323.84C369.087 1334.99 362.168 1359.97 373.312 1379.65C477.958 1564.44 744.436 1563.67 848.017 1378.29L850.081 1374.59C861.111 1354.85 854.049 1329.9 834.307 1318.87Z" fill="#C6AD82"/>
+              <path d="M641.001 214.05C796.902 261.714 932.332 319.143 1025.13 372.776C1071.81 399.761 1105.7 424.646 1126.05 445.484C1136.24 455.919 1141.5 463.798 1143.82 468.885C1143.97 469.216 1144.1 469.524 1144.22 469.807C1143.96 469.976 1143.68 470.157 1143.37 470.348C1138.61 473.269 1129.84 476.859 1115.56 479.811C1087.03 485.708 1045.02 487.388 991.227 483.652C884.306 476.227 739.916 448.107 584.015 400.443C428.113 352.779 292.684 295.35 199.89 241.717C153.202 214.732 119.314 189.846 98.9646 169.008C88.7748 158.574 83.5129 150.695 81.1958 145.608C81.0444 145.276 80.9122 144.968 80.7949 144.685C81.0503 144.516 81.3321 144.335 81.6432 144.145C86.4086 141.223 95.1767 137.634 109.459 134.681C137.982 128.785 179.993 127.104 233.788 130.84C340.709 138.265 485.099 166.386 641.001 214.05Z" stroke="#C6AD82" stroke-width="81.8968"/>
+            </svg>
+          </div>
+        </div>
+        <div class="text-center animate-on-scroll">
+          <h2 id="what-if-heading" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight">
+            What if <span class="highlight-gold">instead</span> of<br class="hidden sm:block"/> doomscrolling...
+          </h2>
+          <p class="text-base sm:text-lg md:text-xl text-stone-500 font-normal mt-4 sm:mt-5 max-w-md sm:max-w-lg mx-auto" style="font-weight: 200;">
+            You started each day with a moment of prayer that fills you with peace and purpose?
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SCREEN TIME WAKE-UP ========== -->
+    <section class="counter-section py-20 sm:py-28" aria-labelledby="screentime-heading">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p class="text-sage-400 text-sm sm:text-base uppercase tracking-widest mb-4 animate-on-scroll" style="font-weight: 400;">The average person</p>
+        <div class="animate-on-scroll">
+          <p class="text-white text-xl sm:text-2xl md:text-3xl font-light mb-2">will spend</p>
+          <p class="counter-number" id="hours-counter">2,372</p>
+          <p class="text-white text-xl sm:text-2xl md:text-3xl font-light mt-2">hours on their phone this year</p>
+        </div>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mt-10 animate-on-scroll">
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-4 inline-block">
+            <p class="counter-number text-3xl sm:text-4xl" style="font-size: clamp(1.5rem, 4vw, 2.5rem);">98 days</p>
+            <p class="text-sage-400 text-sm mt-1">straight on your phone</p>
+          </div>
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-4 inline-block">
+            <p class="counter-number text-3xl sm:text-4xl" style="font-size: clamp(1.5rem, 4vw, 2.5rem);">16 years</p>
+            <p class="text-sage-400 text-sm mt-1">over your lifetime</p>
+          </div>
+        </div>
+        <p class="text-white/70 text-base sm:text-lg mt-10 max-w-md mx-auto animate-on-scroll" style="font-weight: 300;">
+          What if just <span class="text-gold-400 font-semibold">2 minutes</span> of that time each day went to prayer?
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== VALUE PROP ========== -->
+    <section class="py-20 sm:py-28 bg-white" aria-labelledby="shield-heading">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="flex justify-center mb-4 animate-on-scroll scale-in" aria-hidden="true">
+          <div class="w-[60px] sm:w-[75px] md:w-[90px]">
+            <svg viewBox="0 0 1226 2260" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+              <path d="M895.79 594.475C966.595 594.475 1023.99 651.873 1023.99 722.678V2131.63C1023.99 2202.43 966.594 2259.83 895.79 2259.83H329.133C258.329 2259.83 200.93 2202.43 200.93 2131.63V722.678C200.93 651.873 258.329 594.475 329.133 594.475H895.79ZM834.307 1318.87C814.564 1307.84 789.618 1314.9 778.587 1334.65L776.522 1338.34C704.092 1467.97 517.75 1468.51 444.574 1339.3C433.43 1319.62 408.444 1312.7 388.766 1323.84C369.087 1334.99 362.168 1359.97 373.312 1379.65C477.958 1564.44 744.436 1563.67 848.017 1378.29L850.081 1374.59C861.111 1354.85 854.049 1329.9 834.307 1318.87Z" fill="#5D6B60"/>
+              <path d="M641.001 214.05C796.902 261.714 932.332 319.143 1025.13 372.776C1071.81 399.761 1105.7 424.646 1126.05 445.484C1136.24 455.919 1141.5 463.798 1143.82 468.885C1143.97 469.216 1144.1 469.524 1144.22 469.807C1143.96 469.976 1143.68 470.157 1143.37 470.348C1138.61 473.269 1129.84 476.859 1115.56 479.811C1087.03 485.708 1045.02 487.388 991.227 483.652C884.306 476.227 739.916 448.107 584.015 400.443C428.113 352.779 292.684 295.35 199.89 241.717C153.202 214.732 119.314 189.846 98.9646 169.008C88.7748 158.574 83.5129 150.695 81.1958 145.608C81.0444 145.276 80.9122 144.968 80.7949 144.685C81.0503 144.516 81.3321 144.335 81.6432 144.145C86.4086 141.223 95.1767 137.634 109.459 134.681C137.982 128.785 179.993 127.104 233.788 130.84C340.709 138.265 485.099 166.386 641.001 214.05Z" stroke="#5D6B60" stroke-width="81.8968"/>
+            </svg>
+          </div>
+        </div>
+        <div class="animate-on-scroll">
+          <h2 id="shield-heading" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight">
+            <span class="highlight-sage">Shield</span> your apps<br class="hidden sm:block"/> with BlessUp
+          </h2>
+          <p class="text-base sm:text-lg md:text-xl text-stone-500 font-normal mt-4 sm:mt-5 max-w-md sm:max-w-lg mx-auto" style="font-weight: 200;">
+            BlessUp gently holds distractions until you've had your moment with God. Pray first, scroll later.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== HOW IT WORKS ========== -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24 space-y-16 sm:space-y-24 lg:space-y-32" aria-labelledby="features-heading">
+      <h2 id="features-heading" class="sr-only">How BlessUp Works</h2>
+
+      <!-- Feature 1: Pray Daily -->
+      <article class="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20">
+        <div class="w-full lg:w-1/2 animate-on-scroll slide-left">
+          <div class="bg-sage-50 rounded-2xl sm:rounded-3xl lg:rounded-[50px] p-8 sm:p-12 lg:p-16 flex items-center justify-center" style="min-height: 350px;">
+            <div class="text-center space-y-5">
+              <div class="inline-flex items-center gap-3 bg-white rounded-2xl px-6 py-4 shadow-sm border border-sage-200">
+                <div class="w-10 h-10 bg-sage-600 rounded-xl flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                </div>
+                <span class="text-lg font-semibold text-sage-800">Morning Prayer</span>
+                <span class="text-sm text-sage-400">~2 min</span>
+              </div>
+              <div class="inline-flex items-center gap-3 bg-white rounded-2xl px-6 py-4 shadow-sm border border-sage-200">
+                <div class="w-10 h-10 bg-gold-400 rounded-xl flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                </div>
+                <span class="text-lg font-semibold text-sage-800">Daily Scripture</span>
+                <span class="text-sm text-sage-400">verse</span>
+              </div>
+              <div class="inline-flex items-center gap-3 bg-white rounded-2xl px-6 py-4 shadow-sm border border-sage-200">
+                <div class="w-10 h-10 bg-success-400 rounded-xl flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <span class="text-lg font-semibold text-sage-800">Gratitude</span>
+                <span class="text-sm text-sage-400">reflect</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full lg:w-1/2 text-center lg:text-left animate-on-scroll slide-right">
+          <h3 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-semibold text-gray-900">
+            Start each day with prayer and scripture
+          </h3>
+          <p class="text-base sm:text-lg lg:text-xl text-center lg:text-left text-stone-500 font-normal mt-3 sm:mt-4 lg:mt-5" style="font-weight: 200;">
+            A short prayer. Daily verse. Gratitude reflection. BlessUp guides you through a peaceful morning moment in about 2 minutes.
+          </p>
+        </div>
+      </article>
+
+      <!-- Feature 2: Apps Unlock -->
+      <article class="flex flex-col lg:flex-row-reverse items-center gap-8 sm:gap-12 lg:gap-20">
+        <div class="w-full lg:w-1/2 animate-on-scroll slide-right">
+          <div class="bg-sage-50 rounded-2xl sm:rounded-3xl lg:rounded-[50px] p-8 sm:p-12 lg:p-16 flex items-center justify-center" style="min-height: 350px;">
+            <div class="text-center space-y-5">
+              <div class="flex items-center justify-center gap-4 mb-4">
+                <div class="relative">
+                  <img src="assets/images/instagram.png" alt="Instagram" class="w-14 h-14 rounded-2xl shadow-md" />
+                  <div class="absolute -top-1 -right-1 w-5 h-5 bg-sage-600 rounded-full flex items-center justify-center">
+                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                  </div>
+                </div>
+                <div class="relative">
+                  <img src="assets/images/tiktok.png" alt="TikTok" class="w-14 h-14 rounded-2xl shadow-md" />
+                  <div class="absolute -top-1 -right-1 w-5 h-5 bg-sage-600 rounded-full flex items-center justify-center">
+                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                  </div>
+                </div>
+                <div class="relative">
+                  <img src="assets/images/youtube.png" alt="YouTube" class="w-14 h-14 rounded-2xl shadow-md" />
+                  <div class="absolute -top-1 -right-1 w-5 h-5 bg-sage-600 rounded-full flex items-center justify-center">
+                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-white rounded-2xl px-8 py-5 shadow-sm border border-sage-200 inline-block">
+                <div class="flex items-center gap-3">
+                  <div class="w-3 h-3 rounded-full bg-gold-400 animate-pulse"></div>
+                  <span class="text-sage-500 font-medium">Apps shielded until you pray</span>
+                </div>
+              </div>
+              <div class="pt-2">
+                <svg class="w-8 h-8 mx-auto text-sage-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+              </div>
+              <div class="bg-white rounded-2xl px-8 py-5 shadow-sm border border-success-100 inline-block">
+                <div class="flex items-center gap-3">
+                  <div class="w-3 h-3 rounded-full bg-success-400"></div>
+                  <span class="text-success-400 font-semibold">Prayer complete — apps unlocked</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full lg:w-1/2 text-center lg:text-left animate-on-scroll slide-left">
+          <h3 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-semibold text-gray-900">
+            Distractions shielded until you pray
+            <span class="inline-block align-middle ml-1">
+              <span class="app-icon-stack">
+                <img src="assets/images/instagram.png" alt="" />
+                <img src="assets/images/tiktok.png" alt="" />
+                <img src="assets/images/youtube.png" alt="" />
+              </span>
+            </span>
+          </h3>
+          <p class="text-base sm:text-lg lg:text-xl text-center lg:text-left text-stone-500 font-normal mt-3 sm:mt-4 lg:mt-5" style="font-weight: 200;">
+            BlessUp gently blocks your most distracting apps — Instagram, TikTok, YouTube, and more — until you've completed your daily prayer.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ========== SOCIAL PROOF ========== -->
+    <section class="pt-8 sm:pt-12 pb-16 sm:pb-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 sm:mb-14">
+        <div class="text-center">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 animate-on-scroll">
+            What BlessUp Users Say
+          </h2>
+          <p class="text-base sm:text-lg md:text-xl text-center text-stone-500 font-normal mt-3 sm:mt-5 max-w-lg mx-auto animate-on-scroll" style="font-weight: 200;">
+            Don't just take our word for it. Hear from our amazing community.
+          </p>
+        </div>
+      </div>
+
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
+          <div class="testimonial-card animate-on-scroll">
+            <div class="flex items-center gap-1 mb-4">
+              <span class="text-gold-400 text-lg">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="text-gray-700 text-base leading-relaxed mb-6">
+              "I pray every day now. I haven't done that in years and it feels great. BlessUp made it effortless."
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-sage-100 flex items-center justify-center">
+                <span class="text-sage-600 font-semibold text-sm">S</span>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-900 text-sm">Sarah</p>
+                <p class="text-stone-400 text-xs">Age 34</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card animate-on-scroll">
+            <div class="flex items-center gap-1 mb-4">
+              <span class="text-gold-400 text-lg">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="text-gray-700 text-base leading-relaxed mb-6">
+              "My mornings finally have meaning. Instead of reaching for social media, I reach for God first."
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-sage-100 flex items-center justify-center">
+                <span class="text-sage-600 font-semibold text-sm">M</span>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-900 text-sm">Marcus</p>
+                <p class="text-stone-400 text-xs">Age 28</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card animate-on-scroll">
+            <div class="flex items-center gap-1 mb-4">
+              <span class="text-gold-400 text-lg">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="text-gray-700 text-base leading-relaxed mb-6">
+              "This changed my relationship with my phone. The guided prayers are perfect for starting each day."
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-sage-100 flex items-center justify-center">
+                <span class="text-sage-600 font-semibold text-sm">E</span>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-900 text-sm">Elena</p>
+                <p class="text-stone-400 text-xs">Age 41</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== STATS (hidden) ========== -->
+    <section class="py-16 sm:py-24 bg-sage-50" style="display:none;">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 text-center stagger-children">
+          <div class="animate-on-scroll">
+            <p class="text-4xl sm:text-5xl font-bold text-sage-600">27,438</p>
+            <p class="text-stone-500 mt-2 text-base" style="font-weight: 200;">faithful users praying daily</p>
+          </div>
+          <div class="animate-on-scroll">
+            <p class="text-4xl sm:text-5xl font-bold text-gold-400">4.9</p>
+            <p class="text-stone-500 mt-2 text-base" style="font-weight: 200;">App Store rating</p>
+          </div>
+          <div class="animate-on-scroll">
+            <p class="text-4xl sm:text-5xl font-bold text-sage-600">2 min</p>
+            <p class="text-stone-500 mt-2 text-base" style="font-weight: 200;">average prayer session</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== RESEARCH ========== -->
+    <section class="py-16 sm:py-24 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 animate-on-scroll">
+          Science confirms it
+        </h2>
+        <p class="text-base sm:text-lg md:text-xl text-stone-500 font-normal mt-4 sm:mt-5 max-w-lg mx-auto animate-on-scroll" style="font-weight: 200;">
+          Daily prayer changes how you feel. Research from Harvard T.H. Chan School of Public Health shows:
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-10 sm:mt-14 stagger-children">
+          <div class="animate-on-scroll">
+            <p class="text-3xl sm:text-4xl font-bold text-sage-600">+16%</p>
+            <p class="text-stone-500 text-sm mt-2">positive emotions</p>
+          </div>
+          <div class="animate-on-scroll">
+            <p class="text-3xl sm:text-4xl font-bold text-gold-400">+12%</p>
+            <p class="text-stone-500 text-sm mt-2">life satisfaction</p>
+          </div>
+          <div class="animate-on-scroll">
+            <p class="text-3xl sm:text-4xl font-bold text-sage-600">-9%</p>
+            <p class="text-stone-500 text-sm mt-2">depressive symptoms</p>
+          </div>
+          <div class="animate-on-scroll">
+            <p class="text-3xl sm:text-4xl font-bold text-gold-400">-44%</p>
+            <p class="text-stone-500 text-sm mt-2">substance misuse</p>
+          </div>
+        </div>
+        <div class="flex items-center justify-center gap-6 mt-10 animate-on-scroll">
+          <img src="assets/images/harvard.png" alt="Harvard T.H. Chan School of Public Health" class="h-10 sm:h-12 object-contain opacity-50" />
+          <img src="assets/images/baylor.png" alt="Baylor University" class="h-10 sm:h-12 object-contain opacity-50" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FINAL CTA ========== -->
+    <section class="pt-8 sm:pt-12 pb-20 sm:pb-28 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20">
+          <div class="w-full lg:w-1/2 flex justify-center animate-on-scroll">
+            <div class="w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] lg:w-[400px] lg:h-[400px] warm-glow rounded-full flex items-center justify-center">
+              <div class="breathe">
+                <svg viewBox="0 0 1226 2260" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64">
+                  <path d="M895.79 594.475C966.595 594.475 1023.99 651.873 1023.99 722.678V2131.63C1023.99 2202.43 966.594 2259.83 895.79 2259.83H329.133C258.329 2259.83 200.93 2202.43 200.93 2131.63V722.678C200.93 651.873 258.329 594.475 329.133 594.475H895.79ZM834.307 1318.87C814.564 1307.84 789.618 1314.9 778.587 1334.65L776.522 1338.34C704.092 1467.97 517.75 1468.51 444.574 1339.3C433.43 1319.62 408.444 1312.7 388.766 1323.84C369.087 1334.99 362.168 1359.97 373.312 1379.65C477.958 1564.44 744.436 1563.67 848.017 1378.29L850.081 1374.59C861.111 1354.85 854.049 1329.9 834.307 1318.87Z" fill="#C6AD82"/>
+                  <path d="M641.001 214.05C796.902 261.714 932.332 319.143 1025.13 372.776C1071.81 399.761 1105.7 424.646 1126.05 445.484C1136.24 455.919 1141.5 463.798 1143.82 468.885C1143.97 469.216 1144.1 469.524 1144.22 469.807C1143.96 469.976 1143.68 470.157 1143.37 470.348C1138.61 473.269 1129.84 476.859 1115.56 479.811C1087.03 485.708 1045.02 487.388 991.227 483.652C884.306 476.227 739.916 448.107 584.015 400.443C428.113 352.779 292.684 295.35 199.89 241.717C153.202 214.732 119.314 189.846 98.9646 169.008C88.7748 158.574 83.5129 150.695 81.1958 145.608C81.0444 145.276 80.9122 144.968 80.7949 144.685C81.0503 144.516 81.3321 144.335 81.6432 144.145C86.4086 141.223 95.1767 137.634 109.459 134.681C137.982 128.785 179.993 127.104 233.788 130.84C340.709 138.265 485.099 166.386 641.001 214.05Z" stroke="#C6AD82" stroke-width="81.8968"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 text-center lg:text-left animate-on-scroll">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold text-gray-900 leading-tight">
+              Ready to<br class="hidden sm:block"/><span class="sm:hidden"> </span>BlessUp?
+            </h2>
+            <p class="text-base sm:text-lg lg:text-xl text-stone-500 mt-4 sm:mt-6 leading-relaxed max-w-md mx-auto lg:mx-0" style="font-weight: 300;">
+              Will you choose faith before the first scroll, or continue falling into old habits?
+            </p>
+            <div class="mt-6 sm:mt-8 flex justify-center lg:justify-start">
+              <a href="#" class="appstore-btn inline-block">
+                <img alt="Download on the App Store" width="150" height="50" src="assets/images/appstore.svg" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-sage-600">
+    <div class="max-w-6xl mx-auto pt-12 sm:pt-16 px-4 sm:px-6 lg:px-8 animate-on-scroll">
+      <div class="flex flex-col lg:flex-row justify-between gap-8 sm:gap-12 lg:gap-8">
+        <div class="flex flex-col gap-4 animate-on-scroll">
+          <a class="flex items-center gap-3" href="index.html" aria-label="Go to BlessUp homepage">
+            <img src="assets/images/app-icon.png" alt="BlessUp" class="w-12 h-12 rounded-2xl" />
+            <span class="text-2xl font-bold text-white">BlessUp</span>
+          </a>
+          <p class="text-white/90 text-lg max-w-xs leading-relaxed">Faith before scrolling</p>
+          <p class="text-white/70 text-base mt-4">&copy; BlessUp 2026, All Rights Reserved.</p>
+        </div>
+
+        <div class="flex gap-12 sm:gap-16 md:gap-24">
+          <nav class="flex flex-col gap-3 animate-on-scroll" aria-label="Footer navigation">
+            <h3 class="text-white font-bold text-lg mb-1">Navigate</h3>
+            <a class="text-white/90 hover:text-white transition-colors" href="index.html">Home</a>
+            <a class="text-white/90 hover:text-white transition-colors" href="#features-heading">How It Works</a>
+          </nav>
+          <div class="flex flex-col gap-3 animate-on-scroll">
+            <h3 class="text-white font-bold text-lg mb-1">Socials</h3>
+            <a target="_blank" rel="noopener noreferrer" class="text-white/90 hover:text-white transition-colors" href="#">Instagram</a>
+            <a target="_blank" rel="noopener noreferrer" class="text-white/90 hover:text-white transition-colors" href="#">TikTok</a>
+          </div>
+          <div class="flex flex-col gap-3 animate-on-scroll">
+            <h3 class="text-white font-bold text-lg mb-1">Legal</h3>
+            <a class="text-white/90 hover:text-white transition-colors" href="privacy.html">Privacy Policy</a>
+            <a class="text-white/90 hover:text-white transition-colors" href="terms.html">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full overflow-hidden max-w-6xl mx-auto mt-24 sm:mt-32 px-4 sm:px-6 lg:px-8 pb-4 animate-on-scroll">
+      <div class="footer-brand text-center select-none">BLESSUP</div>
+    </div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    // Scroll animations
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
+      });
+
+      // Animated counter for screen time section
+      const counterEl = document.getElementById('hours-counter');
+      if (counterEl) {
+        let counted = false;
+        const counterObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !counted) {
+              counted = true;
+              animateCounter(counterEl, 0, 2372, 2000);
+            }
+          });
+        }, { threshold: 0.5 });
+        counterObserver.observe(counterEl);
+      }
+    });
+
+    function animateCounter(el, start, end, duration) {
+      const startTime = performance.now();
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(start + (end - start) * eased);
+        el.textContent = current.toLocaleString();
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+      requestAnimationFrame(update);
+    }
+  </script>
+
+</body>
+</html>
