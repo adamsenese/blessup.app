@@ -144,7 +144,7 @@
     .phone-mockup {
       width: 240px;
       height: 490px;
-      background: #fff;
+      background: #000;
       border-radius: 36px;
       border: 6px solid #2D2D2A;
       position: relative;
@@ -157,22 +157,58 @@
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 80px;
-      height: 24px;
-      background: #2D2D2A;
-      border-radius: 0 0 16px 16px;
+      width: 90px;
+      height: 26px;
+      background: #000;
+      border-radius: 0 0 18px 18px;
       z-index: 10;
     }
-    .phone-screen {
+    .phone-mockup img.phone-screenshot {
       width: 100%;
       height: 100%;
-      overflow: hidden;
+      object-fit: cover;
+      object-position: top;
+      display: block;
     }
     .phone-left {
       transform: rotate(-6deg) translateY(20px);
     }
     .phone-right {
       transform: rotate(6deg) translateY(20px);
+    }
+
+    /* Floating app icons */
+    .floating-icons-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .floating-icon {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.1);
+      animation: float-icon 6s ease-in-out infinite;
+      overflow: hidden;
+    }
+    .floating-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .floating-icon:nth-child(1) { top: 8%; left: 2%; animation-delay: 0s; }
+    .floating-icon:nth-child(2) { top: 30%; left: -4%; animation-delay: -1.5s; }
+    .floating-icon:nth-child(3) { top: 55%; right: -4%; animation-delay: -3s; }
+    .floating-icon:nth-child(4) { top: 75%; left: 0%; animation-delay: -4s; }
+    .floating-icon:nth-child(5) { top: 12%; right: 2%; animation-delay: -2.5s; }
+
+    @keyframes float-icon {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-8px) rotate(2deg); }
+      50% { transform: translateY(-4px) rotate(-1deg); }
+      75% { transform: translateY(-12px) rotate(1deg); }
     }
 
     @media (max-width: 639px) {
@@ -183,9 +219,14 @@
         border-radius: 28px;
       }
       .phone-mockup::before {
-        width: 60px;
-        height: 20px;
-        border-radius: 0 0 12px 12px;
+        width: 68px;
+        height: 22px;
+        border-radius: 0 0 14px 14px;
+      }
+      .floating-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 9px;
       }
     }
 
@@ -341,7 +382,7 @@
 
   <main>
     <!-- ========== HERO SECTION ========== -->
-    <section class="hero-section pt-12 sm:pt-20 pb-20 sm:pb-32 relative" aria-labelledby="hero-heading">
+    <section class="hero-section pt-12 sm:pt-20 pb-0 relative overflow-visible" aria-labelledby="hero-heading" style="margin-bottom: -120px; z-index: 1;">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-12 sm:mb-16">
           <div class="animate-on-scroll">
@@ -359,130 +400,43 @@
           </div>
         </div>
 
-        <!-- Phone Mockups -->
+        <!-- Phone Mockups with Floating Icons -->
         <div class="flex justify-center items-end gap-4 sm:gap-8 relative animate-on-scroll scale-in">
-          <!-- Left Phone: Prayer Screen -->
-          <div class="phone-mockup phone-left">
-            <div class="phone-screen bg-sage-50">
-              <div class="pt-10 px-5 pb-4">
-                <div class="flex items-center justify-between mb-6">
-                  <span class="text-xs text-sage-400 font-medium">9:41 AM</span>
-                  <div class="flex items-center gap-1.5">
-                    <div class="w-4 h-4 rounded-full bg-gold-400 flex items-center justify-center">
-                      <span class="text-white text-[8px] font-bold">7</span>
-                    </div>
-                    <span class="text-xs font-semibold text-sage-600">Day Streak</span>
-                  </div>
-                </div>
-                <div class="text-center mb-6">
-                  <div class="w-16 h-16 mx-auto mb-3">
-                    <svg viewBox="0 0 1226 2260" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-                      <path d="M895.79 594.475C966.595 594.475 1023.99 651.873 1023.99 722.678V2131.63C1023.99 2202.43 966.594 2259.83 895.79 2259.83H329.133C258.329 2259.83 200.93 2202.43 200.93 2131.63V722.678C200.93 651.873 258.329 594.475 329.133 594.475H895.79ZM834.307 1318.87C814.564 1307.84 789.618 1314.9 778.587 1334.65L776.522 1338.34C704.092 1467.97 517.75 1468.51 444.574 1339.3C433.43 1319.62 408.444 1312.7 388.766 1323.84C369.087 1334.99 362.168 1359.97 373.312 1379.65C477.958 1564.44 744.436 1563.67 848.017 1378.29L850.081 1374.59C861.111 1354.85 854.049 1329.9 834.307 1318.87Z" fill="#C6AD82"/>
-                      <path d="M641.001 214.05C796.902 261.714 932.332 319.143 1025.13 372.776C1071.81 399.761 1105.7 424.646 1126.05 445.484C1136.24 455.919 1141.5 463.798 1143.82 468.885C1143.97 469.216 1144.1 469.524 1144.22 469.807C1143.96 469.976 1143.68 470.157 1143.37 470.348C1138.61 473.269 1129.84 476.859 1115.56 479.811C1087.03 485.708 1045.02 487.388 991.227 483.652C884.306 476.227 739.916 448.107 584.015 400.443C428.113 352.779 292.684 295.35 199.89 241.717C153.202 214.732 119.314 189.846 98.9646 169.008C88.7748 158.574 83.5129 150.695 81.1958 145.608C81.0444 145.276 80.9122 144.968 80.7949 144.685C81.0503 144.516 81.3321 144.335 81.6432 144.145C86.4086 141.223 95.1767 137.634 109.459 134.681C137.982 128.785 179.993 127.104 233.788 130.84C340.709 138.265 485.099 166.386 641.001 214.05Z" stroke="#C6AD82" stroke-width="81.8968"/>
-                    </svg>
-                  </div>
-                  <p class="text-sage-800 font-semibold text-sm">Good Morning</p>
-                  <p class="text-sage-400 text-xs mt-1">Your daily prayer awaits</p>
-                </div>
-                <div class="space-y-3">
-                  <div class="bg-white rounded-xl p-3 border border-sage-200 flex items-center gap-3">
-                    <div class="w-8 h-8 bg-sage-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                      <p class="text-sage-800 text-xs font-semibold">Morning Prayer</p>
-                      <p class="text-sage-400 text-[10px]">~2 minutes</p>
-                    </div>
-                    <div class="w-5 h-5 rounded-full border-2 border-sage-200"></div>
-                  </div>
-                  <div class="bg-white rounded-xl p-3 border border-sage-200 flex items-center gap-3">
-                    <div class="w-8 h-8 bg-gold-400 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                      <p class="text-sage-800 text-xs font-semibold">Daily Verse</p>
-                      <p class="text-sage-400 text-[10px]">Scripture reading</p>
-                    </div>
-                    <div class="w-5 h-5 rounded-full border-2 border-sage-200"></div>
-                  </div>
-                  <div class="bg-white rounded-xl p-3 border border-sage-200 flex items-center gap-3">
-                    <div class="w-8 h-8 bg-success-400 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                      <p class="text-sage-800 text-xs font-semibold">Gratitude</p>
-                      <p class="text-sage-400 text-[10px]">Reflection moment</p>
-                    </div>
-                    <div class="w-5 h-5 rounded-full border-2 border-sage-200"></div>
-                  </div>
-                </div>
-                <div class="mt-5">
-                  <div class="bg-sage-600 text-white text-center py-3 rounded-xl text-sm font-semibold">
-                    Begin Prayer
-                  </div>
-                </div>
-              </div>
+
+          <!-- Floating App Icons -->
+          <div class="floating-icons-container">
+            <div class="floating-icon" style="top: 8%; left: 4%;">
+              <img src="assets/images/icon-instagram.png" alt="Instagram" />
+            </div>
+            <div class="floating-icon" style="top: 35%; left: -2%;">
+              <img src="assets/images/icon-tiktok.png" alt="TikTok" />
+            </div>
+            <div class="floating-icon" style="top: 60%; right: -2%;">
+              <img src="assets/images/icon-youtube.png" alt="YouTube" />
+            </div>
+            <div class="floating-icon" style="top: 78%; left: 2%;">
+              <img src="assets/images/icon-tinder.png" alt="Tinder" />
+            </div>
+            <div class="floating-icon" style="top: 12%; right: 4%;">
+              <img src="assets/images/icon-facebook.png" alt="Facebook" />
             </div>
           </div>
 
-          <!-- Right Phone: Shield Screen -->
+          <!-- Left Phone: Prayer Shield Screen -->
+          <div class="phone-mockup phone-left">
+            <img class="phone-screenshot" src="assets/images/screenshot-pray.png" alt="BlessUp prayer shield - Time to Pray screen" />
+          </div>
+
+          <!-- Right Phone: Home Dashboard -->
           <div class="phone-mockup phone-right">
-            <div class="phone-screen bg-sage-50">
-              <div class="pt-10 px-5 pb-4">
-                <div class="flex items-center justify-between mb-6">
-                  <span class="text-xs text-sage-400 font-medium">9:41 AM</span>
-                  <div class="flex items-center gap-1">
-                    <svg class="w-3.5 h-3.5 text-success-400" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    <span class="text-xs font-semibold text-success-400">Prayed</span>
-                  </div>
-                </div>
-                <div class="text-center mb-5">
-                  <p class="text-sage-800 font-semibold text-sm">Apps Unlocked</p>
-                  <p class="text-sage-400 text-xs mt-1">Prayer complete for today</p>
-                </div>
-                <div class="space-y-3">
-                  <div class="bg-white rounded-xl p-3 border border-success-100 flex items-center gap-3">
-                    <img src="assets/images/instagram.png" alt="Instagram" class="w-10 h-10 rounded-xl" />
-                    <div class="flex-1">
-                      <p class="text-sage-800 text-xs font-semibold">Instagram</p>
-                      <p class="text-success-400 text-[10px] font-medium">Unlocked</p>
-                    </div>
-                    <svg class="w-5 h-5 text-success-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
-                  </div>
-                  <div class="bg-white rounded-xl p-3 border border-success-100 flex items-center gap-3">
-                    <img src="assets/images/tiktok.png" alt="TikTok" class="w-10 h-10 rounded-xl" />
-                    <div class="flex-1">
-                      <p class="text-sage-800 text-xs font-semibold">TikTok</p>
-                      <p class="text-success-400 text-[10px] font-medium">Unlocked</p>
-                    </div>
-                    <svg class="w-5 h-5 text-success-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
-                  </div>
-                  <div class="bg-white rounded-xl p-3 border border-success-100 flex items-center gap-3">
-                    <img src="assets/images/youtube.png" alt="YouTube" class="w-10 h-10 rounded-xl" />
-                    <div class="flex-1">
-                      <p class="text-sage-800 text-xs font-semibold">YouTube</p>
-                      <p class="text-success-400 text-[10px] font-medium">Unlocked</p>
-                    </div>
-                    <svg class="w-5 h-5 text-success-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
-                  </div>
-                  <div class="bg-white rounded-xl p-3 border border-success-100 flex items-center gap-3">
-                    <img src="assets/images/reddit.png" alt="Reddit" class="w-10 h-10 rounded-xl" />
-                    <div class="flex-1">
-                      <p class="text-sage-800 text-xs font-semibold">Reddit</p>
-                      <p class="text-success-400 text-[10px] font-medium">Unlocked</p>
-                    </div>
-                    <svg class="w-5 h-5 text-success-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <img class="phone-screenshot" src="assets/images/screenshot-home.png" alt="BlessUp home dashboard with prayer streak and verse of the day" />
           </div>
         </div>
       </div>
     </section>
 
     <!-- ========== MARQUEE SOCIAL PROOF ========== -->
-    <section class="py-6 sm:py-8 bg-white border-y border-sage-300" aria-label="User reviews">
+    <section class="py-6 sm:py-8 bg-white border-y border-sage-300 relative" style="z-index: 2; padding-top: 140px;" aria-label="User reviews">
       <div class="marquee-container">
         <div class="marquee-track">
           <div class="marquee-item"><span class="gold-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> "I pray every day now"</div>
