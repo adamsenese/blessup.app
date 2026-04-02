@@ -21,6 +21,9 @@
   <link rel="apple-touch-icon" href="assets/images/app-icon.png" />
 
   <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <style>
     @font-face {
       font-family: 'Bricolage Grotesque';
@@ -60,6 +63,7 @@
         extend: {
           fontFamily: {
             sans: ['Bricolage Grotesque', 'system-ui', 'sans-serif'],
+            headline: ['Instrument Serif', 'Georgia', 'serif'],
           },
           colors: {
             sage: {
@@ -116,29 +120,24 @@
 
     /* ===== Hero ===== */
     .hero-section {
-      background: linear-gradient(135deg, #F8F6F2 0%, #F2EFE9 40%, #E5E2DC 100%);
+      background: url('assets/images/hero-bg.png') center center / cover no-repeat;
       position: relative;
       overflow: hidden;
     }
     .hero-section::before {
       content: '';
       position: absolute;
-      top: -50%;
-      right: -20%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(198,173,130,0.12) 0%, transparent 70%);
-      border-radius: 50%;
+      inset: 0;
+      background: rgba(255,255,255,0.55);
     }
     .hero-section::after {
       content: '';
       position: absolute;
-      bottom: -30%;
-      left: -10%;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(93,107,96,0.08) 0%, transparent 70%);
-      border-radius: 50%;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(to bottom, transparent, white);
     }
 
     /* ===== Phone Mockup ===== */
@@ -429,7 +428,7 @@
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-12 sm:mb-16">
           <div class="animate-on-scroll">
-            <h1 id="hero-heading" class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-sage-800 leading-tight">
+            <h1 id="hero-heading" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal font-headline text-sage-800 leading-tight">
               Pray before<br/>Screen Time
             </h1>
           </div>
@@ -511,7 +510,7 @@
           </div>
         </div>
         <div class="text-center animate-on-scroll">
-          <h2 id="what-if-heading" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight">
+          <h2 id="what-if-heading" class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal font-headline text-gray-900 leading-tight">
             What if <span class="highlight-gold">instead</span> of<br class="hidden sm:block"/> doomscrolling...
           </h2>
           <p class="text-base sm:text-lg md:text-xl text-stone-500 font-normal mt-4 sm:mt-5 max-w-md sm:max-w-lg mx-auto" style="font-weight: 200;">
@@ -558,7 +557,7 @@
           </div>
         </div>
         <div class="animate-on-scroll">
-          <h2 id="shield-heading" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight">
+          <h2 id="shield-heading" class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal font-headline text-gray-900 leading-tight">
             <span class="highlight-sage">Shield</span> your apps<br class="hidden sm:block"/> with BlessUp
           </h2>
           <p class="text-base sm:text-lg md:text-xl text-stone-500 font-normal mt-4 sm:mt-5 max-w-md sm:max-w-lg mx-auto" style="font-weight: 200;">
@@ -602,7 +601,7 @@
           </div>
         </div>
         <div class="w-full lg:w-1/2 text-center lg:text-left animate-on-scroll slide-right">
-          <h3 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-semibold text-gray-900">
+          <h3 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-normal font-headline text-gray-900">
             Start each day with prayer and scripture
           </h3>
           <p class="text-base sm:text-lg lg:text-xl text-center lg:text-left text-stone-500 font-normal mt-3 sm:mt-4 lg:mt-5" style="font-weight: 200;">
@@ -655,7 +654,7 @@
           </div>
         </div>
         <div class="w-full lg:w-1/2 text-center lg:text-left animate-on-scroll slide-left">
-          <h3 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-semibold text-gray-900">
+          <h3 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-normal font-headline text-gray-900">
             Distractions shielded until you pray
             <span class="inline-block align-middle ml-1">
               <span class="app-icon-stack">
@@ -676,7 +675,7 @@
     <section class="pt-8 sm:pt-12 pb-16 sm:pb-24 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 sm:mb-14">
         <div class="text-center">
-          <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 animate-on-scroll">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal font-headline text-gray-900 animate-on-scroll">
             What BlessUp Users Say
           </h2>
           <p class="text-base sm:text-lg md:text-xl text-center text-stone-500 font-normal mt-3 sm:mt-5 max-w-lg mx-auto animate-on-scroll" style="font-weight: 200;">
@@ -767,7 +766,7 @@
     <!-- ========== RESEARCH ========== -->
     <section class="py-16 sm:py-24 bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 animate-on-scroll">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal font-headline text-gray-900 animate-on-scroll">
           Science confirms it
         </h2>
         <p class="text-base sm:text-lg md:text-xl text-stone-500 font-normal mt-4 sm:mt-5 max-w-lg mx-auto animate-on-scroll" style="font-weight: 200;">
@@ -813,7 +812,7 @@
             </div>
           </div>
           <div class="w-full lg:w-1/2 text-center lg:text-left animate-on-scroll">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold text-gray-900 leading-tight">
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-normal font-headline text-gray-900 leading-tight">
               Ready to<br class="hidden sm:block"/><span class="sm:hidden"> </span>BlessUp?
             </h2>
             <p class="text-base sm:text-lg lg:text-xl text-stone-500 mt-4 sm:mt-6 leading-relaxed max-w-md mx-auto lg:mx-0" style="font-weight: 300;">
